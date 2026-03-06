@@ -17,7 +17,7 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
       - name: Dependency Check (JVM Scan)
-        uses: dependency-check/Dependency-Check_Action@v4
+        uses: dependency-check/Dependency-Check_Action@main
         with:
           args: --scan . --format HTML
       - name: CodeQL Scan
