@@ -16,7 +16,7 @@ public class MainTimerWindow extends JFrame {
     private long sessionStartMillis = 0; // for logging completed sessions
     private boolean isRunning = false;
     private SessionDataManager dataManager;
-
+    private JButton finishButton;
     public MainTimerWindow() {
         super("Productivity Timer");
         dataManager = new SessionDataManager(); // handles save/load
@@ -45,6 +45,11 @@ public class MainTimerWindow extends JFrame {
         statsButton.setFont(new Font("Arial", Font.PLAIN, 18));
         statsButton.addActionListener(e -> showStatsWindow());
         buttonPanel.add(statsButton);
+
+        finishButton = new JButton("Finish ✓");
+        finishButton.setFont(new Font("Arial", Font.PLAIN, 18));
+        finishButton.addActionListener(e -> finishSession());
+        buttonPanel.add(finishButton);  // add to the same panel as Play and Stats
 
         add(buttonPanel, BorderLayout.SOUTH);
 
@@ -103,7 +108,29 @@ public class MainTimerWindow extends JFrame {
     private void showStatsWindow() {
         new StatsWindow(dataManager);
     }
+    private void finishSession() {
+        if (isRunning || pausedTime > 0) {
+            long durationSec;
+            if (isRunning) {
+                durationSec = (System.currentTimeMillis() - startTime) / 1000;
+            } else {
+                durationSec = pausedTime / 1000;
+            }
 
+            if (durationSec > 30) {  // ignore tiny sessions
+                dataManager.addSession(LocalDateTime.now(), durationSec);
+            }
+
+            // Reset everything
+            startTime = 0;
+            pausedTime = 0;
+            sessionStartMillis = 0;
+            isRunning = false;
+            playPauseButton.setText("Play");
+            timeLabel.setText("00:00:00");
+            timeLabel.setForeground(Color.GRAY);
+        }
+    }
     @Override
     public void dispose() {
         // Save any ongoing session on close
