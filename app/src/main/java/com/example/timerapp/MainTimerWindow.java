@@ -46,7 +46,7 @@ public class MainTimerWindow extends JFrame {
         statsButton.addActionListener(e -> showStatsWindow());
         buttonPanel.add(statsButton);
 
-        finishButton = new JButton("Finish ✓");
+        finishButton = new JButton("Finish");
         finishButton.setFont(new Font("Arial", Font.PLAIN, 18));
         finishButton.addActionListener(e -> finishSession());
         buttonPanel.add(finishButton);  // add to the same panel as Play and Stats
