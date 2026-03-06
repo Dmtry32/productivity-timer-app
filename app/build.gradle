@@ -1,0 +1,77 @@
+plugins {
+    id 'application'
+    id 'java'
+    id 'maven-publish'
+    id 'signing'  // For Sonatype
+}
+
+group = 'com.example'
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.junit.jupiter:junit-jupiter:5.9.1'  // For tests
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.1'
+}
+
+application {
+    mainClass = 'com.example.timerapp.App'
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            pom {
+                name = 'Productivity Timer App'
+                description = 'A Java app for productivity timers'
+                url = 'https://github.com/Dmtry32/productivity-timer-app'
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'http://opensource.org/licenses/MIT'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'Dmtry32'
+                        name = 'moussaoui'
+                        email = 'anas.moussaoui@ump.ac.ma'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/Dmtry32/productivity-timer-app.git'
+                    developerConnection = 'scm:git:ssh://github.com/Dmtry32/productivity-timer-app.git'
+                    url = 'https://github.com/Dmtry32/productivity-timer-app'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = 'Sonatype'
+            url = version.endsWith('SNAPSHOT') ? 'https://s01.oss.sonatype.org/content/repositories/snapshots/' : 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+            credentials {
+                username = System.getenv('SONATYPE_USERNAME')  // Set env vars
+                password = System.getenv('SONATYPE_PASSWORD')
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
+}
+
+test {
+    useJUnitPlatform()
+}
