@@ -14,6 +14,7 @@ repositories {
 
 dependencies {
     implementation 'org.junit.jupiter:junit-jupiter:5.9.1'  // For tests
+    implementation 'org.jfree:jfreechart:1.5.4'  // latest stable as of 2025/2026
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.1'
 }
@@ -27,6 +28,9 @@ java {
     withJavadocJar()
 }
 
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -59,7 +63,7 @@ publishing {
     repositories {
         maven {
             name = 'Sonatype'
-            url = version.endsWith('SNAPSHOT') ? 'https://s01.oss.sonatype.org/content/repositories/snapshots/' : 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+            url = version.endsWith('SNAPSHOT') ? ' https://central.sonatype.com/repository/maven-snapshots/' : ' https://central.sonatype.com/repository/maven-snapshots/'
             credentials {
                 username = System.getenv('SONATYPE_USERNAME')  // Set env vars
                 password = System.getenv('SONATYPE_PASSWORD')
