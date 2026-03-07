@@ -189,5 +189,6 @@ MIT License (see [LICENSE](LICENSE) file)
 Made with ❤️ for learning Java, Gradle, GitHub, and productivity tools.
 Feel free to fork, modify, and PR!
 ```
-<img width="1000" height="1000" alt="image" src="https://github.com/user-attachments/assets/31a47184-151f-4c68-adc7-36d0f1a628aa" />
-
+```
+<img width="1091" height="850" alt="image" src="https://github.com/user-attachments/assets/98e6cd49-0df8-474f-95d7-a8c726714e0f" />
+```
