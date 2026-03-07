@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javax.swing.ImageIcon;
+import java.awt.Image;
 
 public class MainTimerWindow extends JFrame {
     private JLabel timeLabel;
@@ -53,12 +55,23 @@ public class MainTimerWindow extends JFrame {
         buttonPanel.add(finishButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
+        ImageIcon icon = new ImageIcon(getClass().getResource("/logo.ico"));
+        if (icon.getImage() != null) {
+            setIconImage(icon.getImage());
+        } else {
+            System.err.println("Warning: Could not load icon from /logo.ico");
+        }
 
         // Timer to update display every second
         updateTimer = new Timer(1000, e -> updateDisplay());
         updateTimer.start(); // always running for live update when active
 
         setVisible(true);
+//        // Assuming you have logo.png in src/main/resources/
+//        ImageIcon icon = new ImageIcon(getClass().getResource("/logo.ico"));
+//        setIconImage(icon.getImage());
+//        setTitle("Productivity Timer");
+
     }
 
     private void togglePlayPause(ActionEvent e) {
