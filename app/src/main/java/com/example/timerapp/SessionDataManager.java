@@ -23,15 +23,15 @@ public class SessionDataManager {
     private static final String DATA_FILE = "daily_sessions.json";
     private Map<LocalDate, Long> dailyTotals = new TreeMap<>(); // date → total seconds that day
 
-    public SessionDataManager() {
-        loadData();
-    }
-
-    public void addSession(LocalDateTime dateTime, long seconds) {
-        LocalDate date = dateTime.toLocalDate();
-        dailyTotals.merge(date, seconds, Long::sum);
-        saveData();
-    }
+//    public SessionDataManager() {
+//        loadData();
+//    }
+//
+//    public void addSession(LocalDateTime dateTime, long seconds) {
+//        LocalDate date = dateTime.toLocalDate();
+//        dailyTotals.merge(date, seconds, Long::sum);
+//        saveData();
+//    }
 
     public Map<LocalDate, Long> getDailyTotals() {
         return new TreeMap<>(dailyTotals);
