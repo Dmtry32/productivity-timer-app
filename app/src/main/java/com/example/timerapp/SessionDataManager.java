@@ -1,27 +1,26 @@
 package com.example.timerapp;
 
 import java.io.*;
-import java.time.LocalDateTime;
-import java.time.YearMonth;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class SessionDataManager {
-    private static final String DATA_FILE = "sessions.json";
-    private Map<YearMonth, Long> monthlyTotals = new TreeMap<>(); // total seconds per month
+    private static final String DATA_FILE = "daily_sessions.json";
+    private Map<LocalDate, Long> dailyTotals = new TreeMap<>(); // date → total seconds that day
 
     public SessionDataManager() {
         loadData();
     }
 
     public void addSession(LocalDateTime dateTime, long seconds) {
-        YearMonth month = YearMonth.from(dateTime);
-        monthlyTotals.merge(month, seconds, Long::sum);
+        LocalDate date = dateTime.toLocalDate();
+        dailyTotals.merge(date, seconds, Long::sum);
         saveData();
     }
 
-    public Map<YearMonth, Long> getMonthlyTotals() {
-        return new TreeMap<>(monthlyTotals);
+    public Map<LocalDate, Long> getDailyTotals() {
+        return new TreeMap<>(dailyTotals);
     }
 
     private void loadData() {
@@ -33,9 +32,9 @@ public class SessionDataManager {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 2) {
-                    YearMonth ym = YearMonth.parse(parts[0], DateTimeFormatter.ofPattern("yyyy-MM"));
+                    LocalDate date = LocalDate.parse(parts[0], DateTimeFormatter.ISO_LOCAL_DATE);
                     long secs = Long.parseLong(parts[1]);
-                    monthlyTotals.put(ym, secs);
+                    dailyTotals.put(date, secs);
                 }
             }
         } catch (Exception e) {
@@ -45,7 +44,7 @@ public class SessionDataManager {
 
     private void saveData() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(DATA_FILE))) {
-            for (Map.Entry<YearMonth, Long> entry : monthlyTotals.entrySet()) {
+            for (Map.Entry<LocalDate, Long> entry : dailyTotals.entrySet()) {
                 writer.println(entry.getKey() + "," + entry.getValue());
             }
         } catch (Exception e) {

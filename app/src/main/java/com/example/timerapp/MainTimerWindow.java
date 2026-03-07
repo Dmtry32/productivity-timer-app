@@ -21,7 +21,7 @@ public class MainTimerWindow extends JFrame {
         super("Productivity Timer");
         dataManager = new SessionDataManager(); // handles save/load
 
-        setSize(280, 180);
+        setSize(320, 200);
         setResizable(false);
         setAlwaysOnTop(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,23 +33,24 @@ public class MainTimerWindow extends JFrame {
         timeLabel.setFont(new Font("Arial", Font.BOLD, 48));
         add(timeLabel, BorderLayout.CENTER);
 
-        // Buttons panel
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        // Buttons panel – use GridLayout or BoxLayout for better control
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(1, 3, 10, 0));  // 1 row, 3 columns, horizontal gap
 
         playPauseButton = new JButton("Play");
-        playPauseButton.setFont(new Font("Arial", Font.PLAIN, 18));
+        playPauseButton.setFont(new Font("Arial", Font.PLAIN, 16));
         playPauseButton.addActionListener(this::togglePlayPause);
         buttonPanel.add(playPauseButton);
 
         statsButton = new JButton("Stats");
-        statsButton.setFont(new Font("Arial", Font.PLAIN, 18));
+        statsButton.setFont(new Font("Arial", Font.PLAIN, 16));
         statsButton.addActionListener(e -> showStatsWindow());
         buttonPanel.add(statsButton);
 
         finishButton = new JButton("Finish");
-        finishButton.setFont(new Font("Arial", Font.PLAIN, 18));
+        finishButton.setFont(new Font("Arial", Font.PLAIN, 16));
         finishButton.addActionListener(e -> finishSession());
-        buttonPanel.add(finishButton);  // add to the same panel as Play and Stats
+        buttonPanel.add(finishButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
 
@@ -71,7 +72,7 @@ public class MainTimerWindow extends JFrame {
                 // Resume after pause
                 startTime = System.currentTimeMillis() - pausedTime;
             }
-            playPauseButton.setText("Pause \u23F8");
+            playPauseButton.setText("Pause");
             isRunning = true;
         } else {
             // Pause

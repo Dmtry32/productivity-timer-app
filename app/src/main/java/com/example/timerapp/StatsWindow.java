@@ -25,44 +25,41 @@ public class StatsWindow extends JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+        DateTimeFormatter dateFmt = DateTimeFormatter.ofPattern("MM-dd");  // e.g. 03-07
 
-        Map<YearMonth, Long> totals = dataManager.getMonthlyTotals();
-        for (Map.Entry<YearMonth, Long> entry : totals.entrySet()) {
-            String monthStr = entry.getKey().format(formatter);
+        Map<LocalDate, Long> totals = dataManager.getDailyTotals();
+        for (Map.Entry<LocalDate, Long> entry : totals.entrySet()) {
+            String dayLabel = entry.getKey().format(dateFmt);
             double hours = entry.getValue() / 3600.0;
-            dataset.addValue(hours, "Hours Worked", monthStr);
+            dataset.addValue(hours, "Hours Worked", dayLabel);
         }
 
         JFreeChart chart = ChartFactory.createLineChart(
-                "Monthly Focused Time (Hours)",
-                "Month",
+                "Daily Focused Time (Hours)",
+                "Date",
                 "Hours",
                 dataset,
                 PlotOrientation.VERTICAL,
                 true, true, false);
         // ... after JFreeChart chart = ChartFactory.createLineChart(...)
-// Get the correct plot type (CategoryPlot, not XYPlot)
-        org.jfree.chart.plot.CategoryPlot plot = chart.getCategoryPlot();
+// Fix plot type
+        CategoryPlot plot = chart.getCategoryPlot();
+        CategoryAxis domainAxis = plot.getDomainAxis();
+        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
 
-// Get axes
-        org.jfree.chart.axis.CategoryAxis domainAxis = plot.getDomainAxis();
-        org.jfree.chart.axis.NumberAxis rangeAxis = (org.jfree.chart.axis.NumberAxis) plot.getRangeAxis();
-
-// Improve Y-axis for small values
+// Better scaling for small values
         rangeAxis.setAutoRangeIncludesZero(true);
-        rangeAxis.setAutoRangeMinimumSize(0.1);             // at least show up to 0.1 hours
+        rangeAxis.setAutoRangeMinimumSize(0.05);  // show even 3 minutes (0.05 h)
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        rangeAxis.setUpperMargin(0.2);                      // extra space at top
+        rangeAxis.setUpperMargin(0.3);
 
-// Thicker line (use the renderer for CategoryPlot)
-        plot.getRenderer().setSeriesStroke(0, new BasicStroke(2.0f));  // thicker red line
+        plot.getRenderer().setSeriesStroke(0, new BasicStroke(2.0f));
 
-// Optional: Rotate X-axis labels if months overlap
-        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);  // 45-degree angle for readability
+// Rotate labels if many days
+        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
 
         ChartPanel chartPanel = new ChartPanel(chart);
-        chartPanel.setPreferredSize(new java.awt.Dimension(560, 320));
+        chartPanel.setPreferredSize(new Dimension(560, 320));
         setContentPane(chartPanel);
 
         setVisible(true);
