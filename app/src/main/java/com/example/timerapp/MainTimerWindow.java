@@ -55,8 +55,8 @@ public class MainTimerWindow extends JFrame {
         buttonPanel.add(finishButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
-        ImageIcon icon = new ImageIcon(getClass().getResource("logo.ico"));
-
+        ImageIcon logo = new ImageIcon(getClass().getResource("logo.ico"));
+        window.setIconImage(logo.getImage());
         // Timer to update display every second
         updateTimer = new Timer(1000, e -> updateDisplay());
         updateTimer.start(); // always running for live update when active
