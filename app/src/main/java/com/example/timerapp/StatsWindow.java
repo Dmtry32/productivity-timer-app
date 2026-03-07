@@ -10,7 +10,7 @@ import java.awt.BasicStroke;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.plot.CategoryPlot;
-
+import java.awt.Dimension;
 import java.awt.BasicStroke;
 import javax.swing.*;
 import java.time.YearMonth;
