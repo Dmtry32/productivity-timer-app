@@ -55,7 +55,19 @@ public class SessionDataManager {
             e.printStackTrace();
         }
     }
-
+    public void addSession(LocalDateTime dateTime, long seconds) {
+        LocalDate date = dateTime.toLocalDate();
+        dailyTotals.merge(date, seconds, Long::sum);
+        System.out.println("Added to map: " + date + " += " + seconds + "s → total now " + dailyTotals.get(date));
+        saveData();
+    }
+    public SessionDataManager() {
+        loadData();
+        System.out.println("Loaded " + dailyTotals.size() + " days from file");
+        if (!dailyTotals.isEmpty()) {
+            System.out.println("Example: " + dailyTotals.entrySet().iterator().next());
+        }
+    }
     private void saveData() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(DATA_FILE))) {
             for (Map.Entry<LocalDate, Long> entry : dailyTotals.entrySet()) {

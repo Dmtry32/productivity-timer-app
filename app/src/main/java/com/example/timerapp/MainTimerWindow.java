@@ -82,7 +82,8 @@ public class MainTimerWindow extends JFrame {
 
             // Save completed session chunk
             long durationSec = pausedTime / 1000;
-            if (durationSec > 30) { // ignore very short <30s
+            if (durationSec > 5) { // ignore very short <30s
+                System.out.println("Saving on PAUSE: " + durationSec + " seconds on " + LocalDateTime.now().toLocalDate());
                 dataManager.addSession(LocalDateTime.now(), durationSec);
             }
         }
@@ -118,7 +119,8 @@ public class MainTimerWindow extends JFrame {
                 durationSec = pausedTime / 1000;
             }
 
-            if (durationSec > 30) {  // ignore tiny sessions
+            if (durationSec > 5) {
+                System.out.println("Saving on FINISH: " + durationSec + " seconds on " + LocalDateTime.now().toLocalDate());
                 dataManager.addSession(LocalDateTime.now(), durationSec);
             }
 
