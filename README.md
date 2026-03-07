@@ -24,10 +24,6 @@ Statistics show daily focused hours in a line chart.
 
 
 ## Project Structure
-```
-
-
-
 productivity-timer-app/
 ├── .github/
 │   └── workflows/
@@ -59,20 +55,6 @@ productivity-timer-app/
 ├── gradlew.bat                   # Windows wrapper
 ├── .gitignore
 └── README.md
-
-
-
-
-
-
-
-
-
-```
-
-
-
-
 
 
 ## Data Model Explanation
