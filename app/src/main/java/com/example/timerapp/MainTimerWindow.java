@@ -20,6 +20,8 @@ public class MainTimerWindow extends JFrame {
     private SessionDataManager dataManager;
     private JButton finishButton;
     public MainTimerWindow() {
+        ImageIcon logo = new ImageIcon(getClass().getResource("logo.ico"));
+        window.setIconImage(logo.getImage());
         super("Productivity Timer");
         dataManager = new SessionDataManager(); // handles save/load
 
@@ -55,8 +57,7 @@ public class MainTimerWindow extends JFrame {
         buttonPanel.add(finishButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
-        ImageIcon logo = new ImageIcon(getClass().getResource("logo.ico"));
-        window.setIconImage(logo.getImage());
+
         // Timer to update display every second
         updateTimer = new Timer(1000, e -> updateDisplay());
         updateTimer.start(); // always running for live update when active
