@@ -72,9 +72,6 @@ productivity-timer-app/
 ├── gradlew.bat                   # Windows wrapper
 ├── .gitignore
 └── README.md
-
-
-
 ```
 
 ## Data Model Explanation
@@ -209,5 +206,5 @@ MIT License (see [LICENSE](LICENSE) file)
 Made with ❤️ for learning Java, Gradle, GitHub, and productivity tools.
 Feel free to fork, modify, and PR!
 ```
-<img width="886" height="706" alt="image" src="https://github.com/user-attachments/assets/31a47184-151f-4c68-adc7-36d0f1a628aa" />
+<img width="1000" height="1000" alt="image" src="https://github.com/user-attachments/assets/31a47184-151f-4c68-adc7-36d0f1a628aa" />
 
