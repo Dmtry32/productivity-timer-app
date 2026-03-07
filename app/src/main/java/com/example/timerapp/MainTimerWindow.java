@@ -106,10 +106,22 @@ public class MainTimerWindow extends JFrame {
         // Optional: change color when running
         timeLabel.setForeground(isRunning ? Color.GREEN : Color.GRAY);
     }
+    private StatsWindow statsWindow = null;  // field at class level (add if missing)
 
     private void showStatsWindow() {
-        new StatsWindow(dataManager);
+        if (statsWindow == null || !statsWindow.isShowing()) {
+            // Create new only if not exists or was closed
+            statsWindow = new StatsWindow(dataManager);
+        } else {
+            // Already open → bring to front + refresh data
+            statsWindow.toFront();
+            statsWindow.requestFocus();
+            statsWindow.rebuildChart();  // we'll add this method next
+        }
     }
+//    private void showStatsWindow() {
+//        new StatsWindow(dataManager);
+//    }
     private void finishSession() {
         if (isRunning || pausedTime > 0) {
             long durationSec;
