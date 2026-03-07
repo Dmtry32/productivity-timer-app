@@ -12,6 +12,9 @@ repositories {
     mavenCentral()
 }
 // generate shortcut "fat" JAR with all dependencies included
+application {
+    mainClass = 'com.example.timerapp.App'   // your real main class
+}
 shadowJar {
     archiveBaseName.set('productivity-timer-app')
     archiveClassifier.set('all')             // produces productivity-timer-app-all.jar
