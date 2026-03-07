@@ -8,11 +8,6 @@ The timer counts up during work sessions.
 When you finish a session (or pause), the time is saved per day.
 Statistics show daily focused hours in a line chart.
 
-<img width="886" height="706" alt="image" src="https://github.com/user-attachments/assets/31a47184-151f-4c68-adc7-36d0f1a628aa" />
-
-
-
-
 **Current version**: 1.0.0 (learning project with Gradle, GitHub Actions, Maven publishing)
 
 ## Features
