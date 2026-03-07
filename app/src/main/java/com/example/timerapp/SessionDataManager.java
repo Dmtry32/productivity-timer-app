@@ -25,7 +25,8 @@ public class SessionDataManager {
 
     public SessionDataManager() {
         loadData();
-        System.out.println("Loaded " + dailyTotals.size() + " days from file");
+        System.out.println("[LOAD] Loaded " + dailyTotals.size() + " daily entries");
+        dailyTotals.forEach((d, s) -> System.out.println("  " + d + " → " + s + " s"));
         if (!dailyTotals.isEmpty()) {
             System.out.println("Example: " + dailyTotals.entrySet().iterator().next());
         }
@@ -33,7 +34,7 @@ public class SessionDataManager {
     public void addSession(LocalDateTime dateTime, long seconds) {
         LocalDate date = dateTime.toLocalDate();
         dailyTotals.merge(date, seconds, Long::sum);
-        System.out.println("Added to map: " + date + " += " + seconds + "s → total now " + dailyTotals.get(date));
+        System.out.println("[SAVE] Date: " + date + " | Seconds: " + seconds + " | New total: " + dailyTotals.get(date));
         saveData();
     }
     public Map<LocalDate, Long> getDailyTotals() {
