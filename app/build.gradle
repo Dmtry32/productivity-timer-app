@@ -1,8 +1,9 @@
 plugins {
-    id 'application'
     id 'java'
+    id 'application'
     id 'maven-publish'
-    id 'signing'  // For Sonatype
+    id 'signing'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'  // latest stable as of 2026
 }
 
 group = 'com.example'
@@ -11,33 +12,17 @@ version = '1.0.0'
 repositories {
     mavenCentral()
 }
-// generate shortcut "fat" JAR with all dependencies included
-application {
-    mainClass = 'com.example.timerapp.App'   // your real main class
-}
-shadowJar {
-    archiveBaseName.set('productivity-timer-app')
-    archiveClassifier.set('all')             // produces productivity-timer-app-all.jar
-    archiveVersion.set(project.version ?: '1.0.0')
-    mergeServiceFiles()                      // important for libraries
-    manifest {
-        attributes 'Main-Class': application.mainClass
-    }
-}
 
-// Optional: make "gradlew shadowJar" the default build task
-tasks.named('build') {
-    dependsOn shadowJar
-}
 dependencies {
-    implementation 'org.junit.jupiter:junit-jupiter:5.9.1'  // For tests
-    implementation 'org.jfree:jfreechart:1.5.4'  // latest stable as of 2025/2026
+    implementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+    implementation 'org.jfree:jfreechart:1.5.4'
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.1'
 }
 
 application {
-    mainClass = 'com.example.timerapp.App'
+    mainClass = 'com.example.timerapp.App'  // ← only one block needed
 }
 
 java {
@@ -45,9 +30,28 @@ java {
     withJavadocJar()
 }
 
+// ShadowJar configuration (fat JAR with all deps)
+shadowJar {
+    archiveBaseName.set('productivity-timer-app')
+    archiveClassifier.set('all')               // → productivity-timer-app-all.jar
+    archiveVersion.set(project.version)
+    mergeServiceFiles()                        // merges META-INF/services
+    manifest {
+        attributes 'Main-Class': application.mainClass
+    }
+}
+
+// Make regular build produce the shadow JAR (optional but convenient)
+tasks.named('build') {
+    dependsOn shadowJar
+}
+
+// Force UTF-8 encoding (good practice)
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
+
+// Publishing (fixed Sonatype URLs – use correct ones)
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -59,7 +63,7 @@ publishing {
                 licenses {
                     license {
                         name = 'MIT License'
-                        url = 'http://opensource.org/licenses/MIT'
+                        url = 'https://opensource.org/licenses/MIT'
                     }
                 }
                 developers {
@@ -71,7 +75,7 @@ publishing {
                 }
                 scm {
                     connection = 'scm:git:git://github.com/Dmtry32/productivity-timer-app.git'
-                    developerConnection = 'scm:git:ssh://github.com/Dmtry32/productivity-timer-app.git'
+                    developerConnection = 'scm:git:ssh://git@github.com/Dmtry32/productivity-timer-app.git'
                     url = 'https://github.com/Dmtry32/productivity-timer-app'
                 }
             }
@@ -80,9 +84,11 @@ publishing {
     repositories {
         maven {
             name = 'Sonatype'
-            url = version.endsWith('SNAPSHOT') ? ' https://central.sonatype.com/repository/maven-snapshots/' : ' https://central.sonatype.com/repository/maven-snapshots/'
+            def releasesRepoUrl = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+            def snapshotsRepoUrl = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
             credentials {
-                username = System.getenv('SONATYPE_USERNAME')  // Set env vars
+                username = System.getenv('SONATYPE_USERNAME')
                 password = System.getenv('SONATYPE_PASSWORD')
             }
         }
