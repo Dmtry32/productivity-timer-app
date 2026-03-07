@@ -47,7 +47,7 @@ productivity-timer-app/
 │   └── wrapper/
 │       ├── gradle-wrapper.jar
 │       └── gradle-wrapper.properties
-├── screenshots/                  # Put your images here
+├── screenshots/                  
 ├── daily_sessions.json           # Generated: daily time data (git ignored)
 ├── build.gradle                  # Root build file
 ├── settings.gradle               # Project name + modules
