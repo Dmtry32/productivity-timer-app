@@ -21,9 +21,17 @@ public class MainTimerWindow extends JFrame {
     private JButton finishButton;
     public MainTimerWindow() {
         super("Productivity Timer");
-        dataManager = new SessionDataManager(); // handles save/load
-        ImageIcon logo = new ImageIcon(getClass().getResource("logo.ico"));
-        window.setIconImage(logo.getImage());
+        dataManager = new SessionDataManager();
+
+        // ── Custom icon ────────────────────────────────────────────────
+        ImageIcon logo = new ImageIcon(getClass().getResource("/logo.ico"));  // or /logo.png
+        if (logo.getIconWidth() > 0) {
+            setIconImage(logo.getImage());
+        } else {
+            System.err.println("WARNING: Icon not found at /logo.ico – using default");
+        }
+        // ───────────────────────────────────────────────────────────────
+
         setSize(320, 200);
         setResizable(false);
         setAlwaysOnTop(true);
@@ -36,9 +44,9 @@ public class MainTimerWindow extends JFrame {
         timeLabel.setFont(new Font("Arial", Font.BOLD, 48));
         add(timeLabel, BorderLayout.CENTER);
 
-        // Buttons panel – use GridLayout or BoxLayout for better control
+        // Buttons panel
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(1, 3, 10, 0));  // 1 row, 3 columns, horizontal gap
+        buttonPanel.setLayout(new GridLayout(1, 3, 10, 0));
 
         playPauseButton = new JButton("Play");
         playPauseButton.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -57,16 +65,10 @@ public class MainTimerWindow extends JFrame {
 
         add(buttonPanel, BorderLayout.SOUTH);
 
-        // Timer to update display every second
         updateTimer = new Timer(1000, e -> updateDisplay());
-        updateTimer.start(); // always running for live update when active
+        updateTimer.start();
 
         setVisible(true);
-//        // Assuming you have logo.png in src/main/resources/
-//        ImageIcon icon = new ImageIcon(getClass().getResource("/logo.ico"));
-//        setIconImage(icon.getImage());
-//        setTitle("Productivity Timer");
-
     }
 
     private void togglePlayPause(ActionEvent e) {
