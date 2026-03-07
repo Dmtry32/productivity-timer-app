@@ -11,7 +11,21 @@ version = '1.0.0'
 repositories {
     mavenCentral()
 }
+// generate shortcut "fat" JAR with all dependencies included
+shadowJar {
+    archiveBaseName.set('productivity-timer-app')
+    archiveClassifier.set('all')             // produces productivity-timer-app-all.jar
+    archiveVersion.set(project.version ?: '1.0.0')
+    mergeServiceFiles()                      // important for libraries
+    manifest {
+        attributes 'Main-Class': application.mainClass
+    }
+}
 
+// Optional: make "gradlew shadowJar" the default build task
+tasks.named('build') {
+    dependsOn shadowJar
+}
 dependencies {
     implementation 'org.junit.jupiter:junit-jupiter:5.9.1'  // For tests
     implementation 'org.jfree:jfreechart:1.5.4'  // latest stable as of 2025/2026
