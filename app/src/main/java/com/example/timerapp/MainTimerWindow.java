@@ -24,7 +24,7 @@ public class MainTimerWindow extends JFrame {
         dataManager = new SessionDataManager();
 
         // ── Custom icon ────────────────────────────────────────────────
-        ImageIcon logo = new ImageIcon(getClass().getResource("/logo.ico"));  // or /logo.png
+        ImageIcon logo = new ImageIcon(getClass().getResource("logo.ico"));  // or /logo.png
         if (logo.getIconWidth() > 0) {
             setIconImage(logo.getImage());
         } else {
