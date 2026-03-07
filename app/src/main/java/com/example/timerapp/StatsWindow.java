@@ -36,14 +36,12 @@ public class StatsWindow extends JFrame {
     }
 
     public void rebuildChart() {
-        // Clear any old content
         getContentPane().removeAll();
 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        DateTimeFormatter dateFmt = DateTimeFormatter.ofPattern("MM-dd");  // e.g. 03-07
+        DateTimeFormatter dateFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");  // ← try full date
 
         Map<LocalDate, Long> totals = dataManager.getDailyTotals();
-
         System.out.println("Stats rebuild: found " + totals.size() + " daily entries");
 
         for (Map.Entry<LocalDate, Long> entry : totals.entrySet()) {
@@ -53,7 +51,11 @@ public class StatsWindow extends JFrame {
             System.out.println("  → " + dayLabel + " : " + hours + " hours (" + entry.getValue() + " seconds)");
         }
 
-        JFreeChart chart = ChartFactory.createLineChart(
+        // Debug dataset
+        System.out.println("Dataset row count: " + dataset.getRowCount());
+        System.out.println("Dataset column count: " + dataset.getColumnCount());
+
+        JFreeChart chart = ChartFactory.createLineChart(  // or createBarChart for test
                 "Daily Focused Time (Hours)",
                 "Date",
                 "Hours",
@@ -65,25 +67,21 @@ public class StatsWindow extends JFrame {
         CategoryAxis domainAxis = plot.getDomainAxis();
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
 
-        // Better scaling for small values
-        rangeAxis.setAutoRangeIncludesZero(true);
-        rangeAxis.setAutoRangeMinimumSize(0.05);  // Show even very small values
+        // Force small visible range for testing
+        rangeAxis.setLowerBound(0.0);
+        rangeAxis.setUpperBound(Math.max(1.0, rangeAxis.getUpperBound())); // at least up to 1h
+        rangeAxis.setAutoRange(false);
+
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         rangeAxis.setUpperMargin(0.3);
 
-        // Thicker line
         plot.getRenderer().setSeriesStroke(0, new BasicStroke(2.0f));
-
-        // Rotate X labels if many days
         domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
 
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new Dimension(560, 320));
-
         setContentPane(chartPanel);
 
-        // Refresh UI
         revalidate();
         repaint();
     }
-}
