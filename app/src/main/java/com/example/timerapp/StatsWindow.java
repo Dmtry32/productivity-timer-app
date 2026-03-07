@@ -39,7 +39,7 @@ public class StatsWindow extends JFrame {
         getContentPane().removeAll();
 
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        DateTimeFormatter dateFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");  // ← try full date
+        DateTimeFormatter dateFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");  //  try full date
 
         Map<LocalDate, Long> totals = dataManager.getDailyTotals();
         System.out.println("Stats rebuild: found " + totals.size() + " daily entries");
