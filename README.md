@@ -8,11 +8,6 @@ The timer counts up during work sessions.
 When you finish a session (or pause), the time is saved per day.
 Statistics show daily focused hours in a line chart.
 
-<img width="886" height="706" alt="image" src="https://github.com/user-attachments/assets/31a47184-151f-4c68-adc7-36d0f1a628aa" />
-
-
-
-
 **Current version**: 1.0.0 (learning project with Gradle, GitHub Actions, Maven publishing)
 
 ## Features
@@ -40,6 +35,10 @@ Statistics show daily focused hours in a line chart.
 > Example filenames: `main-window.png`, `stats-window.png`, `chart-with-data.png`
 
 ## Project Structure
+
+
+
+
 
 ```
 productivity-timer-app/
@@ -73,6 +72,9 @@ productivity-timer-app/
 ├── gradlew.bat                   # Windows wrapper
 ├── .gitignore
 └── README.md
+
+
+
 ```
 
 ## Data Model Explanation
@@ -207,4 +209,5 @@ MIT License (see [LICENSE](LICENSE) file)
 Made with ❤️ for learning Java, Gradle, GitHub, and productivity tools.
 Feel free to fork, modify, and PR!
 ```
+<img width="886" height="706" alt="image" src="https://github.com/user-attachments/assets/31a47184-151f-4c68-adc7-36d0f1a628aa" />
 
