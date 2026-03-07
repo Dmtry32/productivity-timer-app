@@ -21,26 +21,13 @@ Statistics show daily focused hours in a line chart.
 - Built with Swing (no external heavy UI framework)
 - Gradle build system + GitHub Actions (build, test, security scan)
 
-## Screenshots
 
-### Main Timer Window
-![Main Timer Window](screenshots/main-window.png)
-*(Play/Pause/Finish buttons – timer running at 00:02:25)*
-
-### Statistics Window
-![Statistics Window](screenshots/stats-window.png)
-*(Daily focused time chart – shows per-day values)*
-
-> **Note**: Add your real screenshots in a `screenshots/` folder in the repository root
-> Example filenames: `main-window.png`, `stats-window.png`, `chart-with-data.png`
 
 ## Project Structure
-
-
-
-
-
 ```
+
+
+
 productivity-timer-app/
 ├── .github/
 │   └── workflows/
@@ -72,7 +59,21 @@ productivity-timer-app/
 ├── gradlew.bat                   # Windows wrapper
 ├── .gitignore
 └── README.md
+
+
+
+
+
+
+
+
+
 ```
+
+
+
+
+
 
 ## Data Model Explanation
 
