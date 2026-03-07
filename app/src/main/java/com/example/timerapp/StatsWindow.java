@@ -16,7 +16,8 @@ import javax.swing.*;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
-
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 public class StatsWindow extends JFrame {
     public StatsWindow(SessionDataManager dataManager) {
         super("Monthly Work Statistics");
