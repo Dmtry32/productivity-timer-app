@@ -190,5 +190,9 @@ Made with ❤️ for learning Java, Gradle, GitHub, and productivity tools.
 Feel free to fork, modify, and PR!
 ```
 ```
-<img width="1091" height="850" alt="image" src="https://github.com/user-attachments/assets/98e6cd49-0df8-474f-95d7-a8c726714e0f" />
+
 ```
+
+
+https://github.com/user-attachments/assets/846eb4d6-a1ed-4120-907f-4adc1e9b1028
+
