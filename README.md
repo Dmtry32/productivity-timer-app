@@ -22,41 +22,6 @@ Statistics show daily focused hours in a line chart.
 - Gradle build system + GitHub Actions (build, test, security scan)
 
 
-
-## Project Structure
-productivity-timer-app/
-├── .github/
-│   └── workflows/
-│       ├── build-test.yml          # CI: build + test on push/PR
-│       └── scan.yml                # Security + dependency scanning
-├── app/
-│   ├── src/
-│   │   ├── main/
-│   │   │   ├── java/
-│   │   │   │   └── com/example/timerapp/
-│   │   │   │       ├── App.java                # Main entry point
-│   │   │   │       ├── MainTimerWindow.java    # Main UI + logic
-│   │   │   │       ├── SessionDataManager.java # Save/load daily data
-│   │   │   │       └── StatsWindow.java        # Chart window
-│   │   │   └── resources/                      # (future: icons, etc.)
-│   │   └── test/
-│   │       └── java/
-│   │           └── com/example/timerapp/       # Unit tests (to be added)
-│   └── build.gradle.kts                        # or build.gradle (module config)
-├── gradle/
-│   └── wrapper/
-│       ├── gradle-wrapper.jar
-│       └── gradle-wrapper.properties
-├── screenshots/                  
-├── daily_sessions.json           # Generated: daily time data (git ignored)
-├── build.gradle                  # Root build file
-├── settings.gradle               # Project name + modules
-├── gradlew                       # Unix wrapper
-├── gradlew.bat                   # Windows wrapper
-├── .gitignore
-└── README.md
-
-
 ## Data Model Explanation
 
 The application uses a very simple file-based persistence model:
