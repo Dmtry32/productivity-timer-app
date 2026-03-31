@@ -1,10 +1,10 @@
 name: Security Scan
 
-on:
-  schedule:
-    - cron: '0 0 * * *'  # Daily
-  push:
-    branches: [ main ]
+# on:
+#   schedule:
+#     - cron: '0 0 * * *'  # Daily
+#   push:
+#     branches: [ main ]
 
 jobs:
   scan:
